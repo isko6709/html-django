@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Все категории</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Шапка -->
+  <header class="bg-gradient-to-r from-blue-600 to-indigo-600 py-10 text-center text-white shadow-lg">
+    <h1 class="text-4xl font-extrabold">Все категории</h1>
+    <p class="text-sm mt-2 opacity-90">Выберите интересующую вас категорию</p>
+  </header>
+
+  <!-- Карточки -->
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {% for i in categories %}
+      <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group">
+
+        <!-- Если у категории есть изображение -->
+        {% if i.image %}
+          <img src="{{ i.image.url }}" alt="{{ i.category_name }}" class="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+        {% else %}
+          <div class="h-48 w-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center text-5xl text-blue-400 font-bold">
+            {{ i.category_name|first|upper }}
+          </div>
+        {% endif %}
+
+        <!-- Текст и кнопка -->
+        <div class="p-5 flex flex-col justify-between h-36">
+          <h2 class="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
+            {{ i.category_name }}
+          </h2>
+          <a href="#"
+             class="mt-4 inline-block text-center px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition">
+            Смотреть →
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <p class="col-span-full text-center text-gray-500">Категорий пока нет</p>
+      {% endfor %}
+    </div>
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 py-6">
+    © {{ now|date:"Y" }} Все права защищены.
+  </footer>
+
+</body>
+</html>
